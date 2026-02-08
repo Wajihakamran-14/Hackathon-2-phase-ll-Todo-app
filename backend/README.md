@@ -34,7 +34,7 @@ A simple task management API built with FastAPI and SQLModel.
 
 3. Run the application:
    ```bash
-   uvicorn main:app --reload
+   uvicorn app:app --reload
    ```
 
 ## API Endpoints
@@ -85,7 +85,7 @@ To connect to your Neon database:
 
 3. Run the application:
    ```bash
-   uvicorn main:app --reload
+   uvicorn app:app --reload
    ```
 
 The application will automatically connect to Neon Serverless PostgreSQL, create the necessary tables, and handle SSL encryption.
