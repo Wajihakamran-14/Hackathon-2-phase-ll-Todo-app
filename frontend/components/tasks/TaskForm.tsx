@@ -7,7 +7,12 @@ import { Textarea } from '@/components/ui/Textarea';
 import { Plus } from 'lucide-react';
 
 interface TaskFormProps {
-  onSubmit: (task: { title: string; description?: string; completed: boolean }) => void;
+  onSubmit: (task: { 
+    title: string; 
+    description?: string; 
+    completed: boolean; 
+    priority: 'low' | 'medium' | 'high' | 'urgent' 
+  }) => Promise<void>;
 }
 
 export function TaskForm({ onSubmit }: TaskFormProps) {

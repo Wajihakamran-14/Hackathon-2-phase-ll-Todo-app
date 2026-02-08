@@ -47,7 +47,12 @@ export default function TasksPage() {
     }
   }, [user]);
 
-  const handleTaskSubmit = async (task: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>) => {
+  const handleTaskSubmit = async (task: {
+    title: string;
+    description?: string;
+    completed: boolean;
+    priority: 'low' | 'medium' | 'high' | 'urgent'
+  }) => {
     try {
       console.log('DEBUG: Submitting task:', task);
       const newTask = await apiClient.createTask(task);
