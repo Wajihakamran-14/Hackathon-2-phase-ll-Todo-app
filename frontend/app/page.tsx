@@ -8,6 +8,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Dialog, DialogContent } from '@/components/ui/Dialog';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { SignupForm } from '@/components/auth/SignupForm';
+import { ChatInterface } from '@/components/chat/ChatInterface';
 
 export default function HomePage() {
   const { user, loading } = useAuth();
@@ -230,6 +231,7 @@ export default function HomePage() {
           </DialogContent>
         </Dialog>
       )}
+      <ChatInterface />
     </div>
   );
 }

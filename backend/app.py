@@ -1,10 +1,12 @@
 from fastapi import FastAPI
 from config.settings import settings
 from routes.tasks import router as tasks_router
+from routes.chat import router as chat_router
 from src.api.auth import router as auth_router
 from src.health import router as health_router
 from contextlib import asynccontextmanager
 from src.database import create_db_and_tables
+from models.chat import ChatConversation, ChatMessage
 
 
 @asynccontextmanager
@@ -43,6 +45,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 # Include API routes
 app.include_router(tasks_router, prefix=f"{settings.api_prefix}/tasks", tags=["tasks"])
+app.include_router(chat_router, prefix=f"{settings.api_prefix}/chat", tags=["chat"])
 app.include_router(auth_router, prefix=settings.api_prefix, tags=["auth"])
 app.include_router(health_router, prefix="", tags=["health"])
 

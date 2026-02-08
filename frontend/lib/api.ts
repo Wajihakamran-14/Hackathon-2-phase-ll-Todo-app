@@ -67,7 +67,7 @@ class ApiClient {
 
   // Task-related methods
   async getTasks(): Promise<Task[]> {
-    return this.request('/tasks/');
+    return this.request(`/tasks/?t=${Date.now()}`);
   }
 
   async createTask(taskData: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>): Promise<Task> {
@@ -94,6 +94,18 @@ class ApiClient {
     return this.request(`/tasks/${id}/complete/`, {
       method: 'PATCH',
     });
+  }
+
+  // Chat-related methods
+  async chat(message: string, conversation_id?: string): Promise<{ response: string; conversation_id: string }> {
+    return this.request('/chat/', {
+      method: 'POST',
+      body: JSON.stringify({ message, conversation_id }),
+    });
+  }
+
+  async getChatHistory(conversation_id: string): Promise<any[]> {
+    return this.request(`/chat/history/${conversation_id}/`);
   }
 }
 

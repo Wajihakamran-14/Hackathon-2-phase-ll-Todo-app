@@ -30,21 +30,26 @@ export default function TasksPage() {
   }, [user, authLoading, router]);
 
   // Fetch tasks from the API only if user is authenticated
+  const fetchTasks = async () => {
+    try {
+      const data = await apiClient.getTasks();
+      setTasks(data);
+    } catch (error) {
+      console.error('Failed to fetch tasks:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (user) {
-      const fetchTasks = async () => {
-        try {
-          const data = await apiClient.getTasks();
-          setTasks(data);
-        } catch (error) {
-          console.error('Failed to fetch tasks:', error);
-        } finally {
-          setLoading(false);
-        }
-      };
-
       fetchTasks();
     }
+
+    // Listen for chat updates
+    const handleRefresh = () => fetchTasks();
+    window.addEventListener('tasks-updated', handleRefresh);
+    return () => window.removeEventListener('tasks-updated', handleRefresh);
   }, [user]);
 
   const handleTaskSubmit = async (task: {

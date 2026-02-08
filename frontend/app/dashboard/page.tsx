@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { TaskCard } from '@/components/tasks/TaskCard';
 import { TaskForm } from '@/components/tasks/TaskForm';
+import { ChatInterface } from '@/components/chat/ChatInterface';
 import { Task } from '@/types/task';
 import { apiClient } from '@/lib/api';
 import { useAuth } from '@/contexts/AuthContext';
@@ -30,21 +31,26 @@ export default function DashboardPage() {
   }, [user, authLoading, router]);
 
   // Fetch tasks from the API only if user is authenticated
+  const fetchTasks = async () => {
+    try {
+      const data = await apiClient.getTasks();
+      setTasks(data);
+    } catch (error) {
+      console.error('Failed to fetch tasks:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (user) {
-      const fetchTasks = async () => {
-        try {
-          const data = await apiClient.getTasks();
-          setTasks(data);
-        } catch (error) {
-          console.error('Failed to fetch tasks:', error);
-        } finally {
-          setLoading(false);
-        }
-      };
-
       fetchTasks();
     }
+
+    // Listen for chat updates
+    const handleRefresh = () => fetchTasks();
+    window.addEventListener('tasks-updated', handleRefresh);
+    return () => window.removeEventListener('tasks-updated', handleRefresh);
   }, [user]);
 
   const handleTaskSubmit = async (task: { 
@@ -270,6 +276,7 @@ export default function DashboardPage() {
           </div>
         )}
       </div>
+      <ChatInterface />
     </div>
   );
 }
