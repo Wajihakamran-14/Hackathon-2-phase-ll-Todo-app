@@ -88,7 +88,7 @@ export default function SettingsPage() {
             <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">{group.title}</h2>
             <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 divide-y dark:divide-slate-800">
               {group.items.map((item) => (
-                <div key={item.name} className="flex items-center justify-between p-6 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors first:rounded-t-2xl last:rounded-b-2xl">
+                <div key={item.name} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors first:rounded-t-2xl last:rounded-b-2xl">
                   <div className="flex items-center">
                     <div className={`p-3 rounded-xl mr-4 transition-colors ${
                       item.active 
@@ -105,7 +105,7 @@ export default function SettingsPage() {
                   <Button 
                     variant={item.active ? "default" : "outline"} 
                     size="sm"
-                    className={`min-w-[100px] ${!item.active ? 'dark:border-slate-700 dark:text-slate-300' : ''}`}
+                    className={`min-w-[100px] w-full sm:w-auto ${!item.active ? 'dark:border-slate-700 dark:text-slate-300' : ''}`}
                     onClick={() => {
                       item.onClick();
                     }}
@@ -120,12 +120,12 @@ export default function SettingsPage() {
         ))}
       </div>
       
-      <div className="mt-12 p-6 bg-indigo-600 rounded-2xl text-white flex items-center justify-between shadow-xl shadow-indigo-200">
+      <div className="mt-12 p-6 bg-indigo-600 rounded-2xl text-white flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-xl shadow-indigo-200">
         <div>
           <h3 className="text-xl font-bold">Cloud Sync</h3>
           <p className="text-indigo-100 text-sm">Your settings are synced across all your devices automatically.</p>
         </div>
-        <Button className="bg-white text-indigo-600 hover:bg-indigo-50 border-none">
+        <Button className="w-full sm:w-auto bg-white text-indigo-600 hover:bg-indigo-50 border-none">
           Sync Now
         </Button>
       </div>
