@@ -76,31 +76,33 @@ export function TaskForm({ onSubmit }: TaskFormProps) {
           />
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-slate-500 mr-2">Priority:</span>
-            <div className="flex gap-1 bg-slate-50 p-1 rounded-xl border border-slate-100">
-              {priorityOptions.map((opt) => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() => setPriority(opt.value as any)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
-                    priority === opt.value 
-                      ? `${opt.color} shadow-sm ring-2 ring-offset-1 ring-indigo-500/20` 
-                      : 'bg-transparent text-slate-400 border-transparent hover:bg-white hover:text-slate-600'
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
+              <span className="text-sm font-medium text-slate-500 mr-2 whitespace-nowrap">Priority:</span>
+              <div className="flex gap-1 bg-slate-50 p-1 rounded-xl border border-slate-100 min-w-max">
+                {priorityOptions.map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => setPriority(opt.value as any)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
+                      priority === opt.value 
+                        ? `${opt.color} shadow-sm ring-2 ring-offset-1 ring-indigo-500/20` 
+                        : 'bg-transparent text-slate-400 border-transparent hover:bg-white hover:text-slate-600'
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
           <Button 
             type="submit" 
             disabled={loading || !title.trim()} 
-            className="px-8 py-3 rounded-xl shadow-lg hover:shadow-indigo-500/20"
+            className="w-full sm:w-auto px-8 py-3 rounded-xl shadow-lg hover:shadow-indigo-500/20"
           >
             <Plus className="h-4 w-4 mr-2" />
             {loading ? 'Adding...' : 'Add Task'}

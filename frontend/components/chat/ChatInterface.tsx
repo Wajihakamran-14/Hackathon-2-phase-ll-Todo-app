@@ -87,7 +87,7 @@ export function ChatInterface() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 p-4 bg-indigo-600 text-white rounded-full shadow-2xl hover:bg-indigo-500 transition-all transform hover:scale-110 z-50 animate-bounce"
+        className="fixed bottom-6 right-6 p-4 bg-indigo-600 text-white rounded-full shadow-2xl hover:bg-indigo-500 transition-all transform hover:scale-110 z-[60] animate-bounce"
       >
         <MessageSquare className="h-6 w-6" />
       </button>
@@ -95,7 +95,7 @@ export function ChatInterface() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 w-96 h-[500px] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl flex flex-col border border-slate-200 dark:border-slate-800 z-50 overflow-hidden animate-fade-in-up">
+    <div className="fixed bottom-0 right-0 w-full h-[85vh] sm:bottom-6 sm:right-6 sm:w-96 sm:h-[500px] bg-white dark:bg-slate-900 rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col border-t sm:border border-slate-200 dark:border-slate-800 z-[60] overflow-hidden animate-fade-in-up">
       {/* Header */}
       <div className="p-4 bg-indigo-600 text-white flex items-center justify-between">
         <div className="flex items-center space-x-2">

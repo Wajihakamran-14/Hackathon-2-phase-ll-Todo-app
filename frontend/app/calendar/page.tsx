@@ -51,37 +51,39 @@ export default function CalendarPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-        <div className="grid grid-cols-7 bg-slate-50 border-b">
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-            <div key={day} className="py-3 text-center text-xs font-bold text-slate-500 uppercase tracking-wider">{day}</div>
-          ))}
-        </div>
-        <div className="grid grid-cols-7">
-          {prevMonthDays.map(i => (
-            <div key={`prev-${i}`} className="h-32 border-b border-r border-slate-100 bg-slate-50/50"></div>
-          ))}
-          {days.map(day => {
-            const dateStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-            const dayTasks = tasks.filter(t => {
-              if (!t.createdAt) return false;
-              // Check if task date starts with our YYYY-MM-DD string
-              return t.createdAt.split('T')[0] === dateStr;
-            });
-            
-            return (
-              <div key={day} className="h-32 border-b border-r border-slate-100 p-2 hover:bg-indigo-50/30 transition-colors">
-                <span className="text-sm font-medium text-slate-700">{day}</span>
-                <div className="mt-1 space-y-1">
-                  {dayTasks.map(t => (
-                    <div key={t.id} className="text-[10px] p-1 bg-indigo-100 text-indigo-700 rounded truncate border border-indigo-200">
-                      {t.title}
-                    </div>
-                  ))}
+      <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden overflow-x-auto">
+        <div className="min-w-[800px]">
+          <div className="grid grid-cols-7 bg-slate-50 border-b">
+            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+              <div key={day} className="py-3 text-center text-xs font-bold text-slate-500 uppercase tracking-wider">{day}</div>
+            ))}
+          </div>
+          <div className="grid grid-cols-7">
+            {prevMonthDays.map(i => (
+              <div key={`prev-${i}`} className="h-32 border-b border-r border-slate-100 bg-slate-50/50"></div>
+            ))}
+            {days.map(day => {
+              const dateStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+              const dayTasks = tasks.filter(t => {
+                if (!t.createdAt) return false;
+                // Check if task date starts with our YYYY-MM-DD string
+                return t.createdAt.split('T')[0] === dateStr;
+              });
+              
+              return (
+                <div key={day} className="h-32 border-b border-r border-slate-100 p-2 hover:bg-indigo-50/30 transition-colors">
+                  <span className="text-sm font-medium text-slate-700">{day}</span>
+                  <div className="mt-1 space-y-1">
+                    {dayTasks.map(t => (
+                      <div key={t.id} className="text-[10px] p-1 bg-indigo-100 text-indigo-700 rounded truncate border border-indigo-200">
+                        {t.title}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
